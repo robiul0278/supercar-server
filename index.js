@@ -90,6 +90,25 @@ async function run() {
       res.send(result);
     })
 
+    // get some user update toy data 
+    app.get('/toys', async (req, res) => {
+      let query = {}
+      if(req.query?.email) {
+        query = {email: req.query.email}
+      }
+      const result = await toysCollection.find(query).toArray();
+      res.send(result);
+    })
+
+    // delete toys 
+    app.delete('/toys/:id', async (req, res) => {
+      const id = req.params.id;
+      console.log('delete id', id);
+      const query = {_id: new ObjectId (id)}
+      const result = await toysCollection.deleteOne(query);
+      res.send(result)
+    })
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
