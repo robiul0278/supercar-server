@@ -34,6 +34,7 @@ async function run() {
     const sportsCollection = client.db('SuperCar').collection("sportsCars");
     const trucksCollection = client.db('SuperCar').collection("trucks");
     const policeCollection = client.db('SuperCar').collection("police");
+    const toysCollection = client.db('SuperCar').collection("allToys");
 
     // get data sports-car
     app.get('/sports', async (req, res) => {
@@ -72,7 +73,22 @@ async function run() {
       const data = await policeCollection.findOne(query);
       res.send(data);
     })
-    // Shop by category ||||||||||||||||||||||||||||||||||||||||||||| END-------------
+    // Shop by category ||||||||||||||||||||||||||||||||||||||||||||| END--
+
+
+    // Add A Toy |||||||||||||||||||||||||||||||||||||||||||||||||||| START--
+    app.post('/toys', async (req, res) => {
+      const data = req.body;
+      const result = await toysCollection.insertOne(data);
+      res.send(result);
+      console.log('new product', data)
+    })
+
+    // get data all toys 
+    app.get('/toys', async (req, res) => {
+      const result = await toysCollection.find({}).toArray();
+      res.send(result);
+    })
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
