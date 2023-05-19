@@ -103,6 +103,23 @@ async function run() {
       res.send(data);
     });
 
+    // update a toy
+    app.put("/toys/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const option = { upsert: true };
+      const updateToy = req.body;
+      const toys = {
+        $set: {
+          price: updateToy.price,
+          quantity: updateToy.quantity,
+          description: updateToy.description
+        }
+      }
+      const result = await toysCollection.updateOne(filter, toys, option);
+      res.send(result);
+    });
+
     // delete toys
     app.delete("/toys/:id", async (req, res) => {
       const id = req.params.id;
