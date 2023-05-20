@@ -69,9 +69,10 @@ async function run() {
       const data = await policeCollection.findOne(query);
       res.send(data);
     });
-    // Shop by category ||||||||||||||||||||||||||||||||||||||||||||| END--
+    // Shop by category |||||||||||||||||||||||||||||||||| END--
 
-    // Add A Toy |||||||||||||||||||||||||||||||||||||||||||||||||||| START--
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||| START--
+    // Add A Toy 
     app.post("/toys", async (req, res) => {
       const data = req.body;
       const result = await toysCollection.insertOne(data);
