@@ -76,12 +76,11 @@ async function run() {
       const data = req.body;
       const result = await toysCollection.insertOne(data);
       res.send(result);
-      console.log("new product", data);
     });
 
     // get data all toys
     app.get("/toys", async (req, res) => {
-      const result = await toysCollection.find({}).toArray();
+      const result = await toysCollection.find({}).limit(20).toArray();
       res.send(result);
     });
 
